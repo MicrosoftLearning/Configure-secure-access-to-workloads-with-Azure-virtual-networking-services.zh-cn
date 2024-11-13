@@ -1,34 +1,37 @@
 ---
 lab:
-  title: 练习：为 Web 应用程序提供网络隔离和分段
+  title: 练习 01：创建和配置虚拟网络
   module: Guided Project - Configure secure access to workloads with Azure virtual networking services
 ---
 
-# 实验室：通过隔离和分段提供共享的服务中心虚拟网络
+# 练习 01：创建和配置虚拟网络
 
 ## 场景
 
-你的任务是将零信任原则应用于 Azure 中的中心虚拟网络。[](https://learn.microsoft.com/security/zero-trust/azure-infrastructure-networking) IT 部门需要为分支网络中的 Web 应用程序提供网络隔离和分段。 若要为 Web 应用程序提供网络隔离和分段，你需要创建包含 IT 团队提供的地址空间的子网的 Azure 虚拟网络。 创建虚拟网络后，下一步是配置虚拟网络对等互连。 这允许虚拟网络以安全且私密的方式相互通信。
+组织正在将基于 Web 的应用程序迁移到 Azure。 第一个任务是部署虚拟网络和子网。 还需要安全地对虚拟网络进行对等互连。 你确定这些要求。 
++ 需要两个虚拟网络：**app-vnet** 和 **hub-vnet**。 这会模拟中心辐射型网络体系结构。 
++ app-vnet 将托管应用程序。 此虚拟网络需要两个子网。 **前端子网**将托管 Web 服务器。 **后端子网**将托管数据库服务器。
++ hub-vnet 只需要防火墙的子网。 
++ 这两个虚拟网络必须能够通过**虚拟网络对等互联**以安全且私密的方式相互通信。 
++ 两个虚拟网络应位于同一区域。 
 
-### 体系结构关系图
+## 技能任务
+
++ 创建虚拟网络。
++ 创建子网。
++ 配置 VNet 对等互连。
+
+## 体系结构关系图
 
 ![显示两个对等虚拟网络的关系表。](../Media/task-1.png)
 
-### 技能任务
-
-- 创建虚拟网络
-- 创建子网
-- 配置 VNet 对等互连
-
 ## 练习说明
 
->**** 备注：若要完成此实验室，需要分配了参与者 RBAC 角色的 **** Azure 订阅[](https://azure.microsoft.com/free/)。
-
-> 在此实验室中，当系统要求你为未指定的任何属性创建资源时，请使用默认值。
+**** 备注：若要完成此实验室，需要分配了参与者 RBAC 角色的 **** Azure 订阅[](https://azure.microsoft.com/free/)。 在此实验室中，当系统要求你为未指定的任何属性创建资源时，请使用默认值。
 
 ### 创建中心和分支虚拟网络和子网
 
-首先创建上图中显示的虚拟网络。
+借助 [Azure 虚拟网络](https://learn.microsoft.com/azure/virtual-network/virtual-networks-overview)，多种类型的 Azure 资源可相互之间、与 Internet 以及与本地网络安全通信。 虚拟网络中的所有 Azure 资源都部署到虚拟网络内的[子网](https://learn.microsoft.com/azure/virtual-network/virtual-network-manage-subnet?tabs=azure-portal)中。 
 
 1. 登录到 **Azure 门户** - `https://portal.azure.com`。
    
@@ -47,7 +50,7 @@ lab:
     | 子网名称          | `backend`     |
     | 子网地址范围 | **10.1.1.0/24** |
 
-    **** 备注：将其他设置保留为默认设置。 完成后，选择“**查看 + 创建**”，然后选择“**创建**”。
+    **备注**：将所有其他设置保留为默认设置。 完成后，选择“**查看 + 创建**”，然后选择“**创建**”。
    
 1. 创建 **Hub-vnet** 虚拟网络配置。 此虚拟网络有防火墙子网。 
 
@@ -60,9 +63,13 @@ lab:
     | 子网名称          | **AzureFirewallSubnet**  |
     | 子网地址范围 | **10.0.0.0/24**          |
 
-1. 部署完成后，搜索并选择 **资源组**。 确认新虚拟网络是资源组的一部分。 
+1. 部署完成后，搜索并选择“虚拟网络”。
+
+1. 验证是否已部署虚拟网络和子网。 
 
 ### 设置虚拟网络之间的对等关系
+
+使用[虚拟网络对等互连](https://learn.microsoft.com/azure/virtual-network/virtual-network-peering-overview)可以无缝连接 Azure 中的两个或更多个虚拟网络。 
 
 1. 搜索并选择 `app-vnet` 虚拟网络。
    
@@ -72,12 +79,24 @@ lab:
 
     | 属性                                 | Value                          |
     | :--------------------------------------- | :----------------------------- |
-    | 对等互连链接名称              | `app-vnet-to-hub` |
+    | 远程对等互连链接名称              | `app-vnet-to-hub` |
     | 虚拟网络    | `hub-vnet` |
     | 本地虚拟网络对等互连链接名称 | `hub-to-app-vnet` |
 
     **** 备注：将其他设置保留为默认设置。 选择“添加”，创建虚拟网络对等互连****。
 
-    [详细了解虚拟网络对等互连](https://learn.microsoft.com/azure/virtual-network/virtual-network-manage-peering?tabs=peering-portal)
+1. 部署完成后，验证**对等互连状态**是否为“**已连接**”。
 
-1. 部署完成后，验证**对等互连状态**是否为“**已连接**”。 
+## 通过在线培训了解更多信息
+
++ [Azure 虚拟网络的简介](https://learn.microsoft.com/training/modules/introduction-to-azure-virtual-networks/)。 在本模块中，你将了解如何设计和实现 Azure 网络服务。 你将了解虚拟网络、公共和专用 IP、DNS、虚拟网络对等互连、路由和 Azure 虚拟 NAT。
+
+## 关键结论
+
+祝贺你完成本练习。 以下是要点：
+
++ Azure 虚拟网络 (VNets) 为云资源提供安全独立的网络环境。 可以为每个区域的每个订阅创建多个虚拟网络。
++ 设计虚拟网络时，确保 VNet 地址空间（CIDR 块）不会与组织的其他网络范围重叠。
++ 子网是 VNet 中的一系列 IP 地址。 你可以将 VNet 划分为不同大小的子网，在订阅限制内创建组织和安全性所需数量的子网。 每个子网必须具有唯一的地址范围。
++ 某些 Azure 服务（如 Azure 防火墙）需要自己的子网。
++ 使用虚拟网络对等互连可以无缝连接两个 Azure 虚拟网络。 出于连接目的，两个虚拟网络会显示为一个。

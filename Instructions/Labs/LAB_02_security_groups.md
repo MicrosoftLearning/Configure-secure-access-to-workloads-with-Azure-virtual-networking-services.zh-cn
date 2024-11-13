@@ -1,31 +1,59 @@
 ---
 lab:
-  title: 练习：控制进出 Web 应用程序的网络流量
+  title: 练习 02：创建和配置网络安全组
   module: Guided Project - Configure secure access to workloads with Azure virtual networking services
 ---
 
-# 实验室：控制进出 Web 应用程序的网络流量
+# 练习 02：创建和配置网络安全组
 
 ## 场景
 
-你的组织要求控制进出 Web 应用程序的网络流量。 若要进一步增强 Web 应用程序的安全性，可以配置网络安全组 (NSG) 和应用程序安全组 (ASG)。 NSG 是一个安全层，用于筛选进出 Azure 资源的网络流量，而 ASG 允许对资源分组进行共同管理。 这些安全组提供对进出 Web 应用程序组件的网络流量的精细控制。
+组织要求严格控制 app-vnet 中的网络流量。 你确定这些要求。
++ 前端子网具有可从 Internet 访问的 Web 服务器。 这些服务器需要**应用程序安全组** (ASG)。 ASG 应与属于组的任何虚拟机接口相关联。 这将使 Web 服务器易于管理。 
++ 需要 **NSG 规则**才能允许到 ASG 的入站 HTTPS 流量。 此规则在端口 443 上使用 TCP 协议。 
++ 后端子网具有前端 Web 服务器使用的数据库服务器。 需要**网络安全组** (NSG) 来控制此流量。 NSG 应与 Web 服务器访问的任何虚拟机接口相关联。 
++ 需要 **NSG 规则**才能允许从 ASG 到后端服务器的入站网络流量。  此规则使用 MS SQL 服务和端口 1443。 
++ 要进行测试，应在前端子网 (VM1) 和后端子网 (VM2) 中安装虚拟机。  IT 组提供了一个 Azure 资源管理器模板来部署这些 **Ubuntu 服务器**。 
 
-### 体系结构关系图
+## 技能任务
+
++ 创建网络安全组。
++ 创建网络安全组规则。
++ 将网络安全组与子网相关联。
++ 在网络安全组规则中创建和使用应用程序安全组。
+
+## 体系结构关系图
 
 ![显示关联到虚拟网络的一个 ASG 和 NSG 的示意图。](../Media/task-2.png)
 
-### 技能任务
 
-- 创建 NSG。
-- 创建 NSG 规则。
-- 将 NSG 关联到子网。
-- 在 NSG 规则中创建和使用应用程序安全组。
+
 
 ## 练习说明
 
+### 为练习创建网络基础结构
+
+**备注：** 本练习需要安装实验室 01 虚拟网络和子网。 如果需要部署这些资源，则提供[模板](https://github.com/MicrosoftLearning/Configure-secure-access-to-workloads-with-Azure-virtual-networking-services/blob/main/Allfiles/Labs/All-Labs/create-vnet-subnets-template.json)。
+
+1. 使用右上角的图标启动 Cloud Shell 会话****。 或者，直接导航到 `https://shell.azure.com`。
+
+1. 如果系统提示选择 Bash 或 PowerShell，请选择 PowerShell  。
+
+1. 此任务不需要存储，请选择订阅。 
+
+1. 部署本练习所需的虚拟机。 
+
+   ```powershell
+   $RGName = "RG1"
+   
+   New-AzResourceGroupDeployment -ResourceGroupName $RGName -TemplateUri https://raw.githubusercontent.com/MicrosoftLearning/Configure-secure-access-to-workloads-with-Azure-virtual-networking-services/main/Instructions/Labs/azuredeploy.json
+   ```
+  
+1. 在门户中，搜索并选择 `virtual machines`。 验证 vm1 和 vm2 是否**正在运行**。
+
 ### 创建应用程序安全组
 
-使用应用程序安全组 (ASG) 可将功能类似的服务器（例如 Web 服务器）分组到一起。
+[应用程序安全组 (ASG)](https://learn.microsoft.com/azure/virtual-network/application-security-groups) 允许将具有类似功能的服务器组合在一起。 例如，托管应用程序的所有 Web 服务器。 
 
 1. 在门户中，搜索并选择 `Application security groups`。
    
@@ -38,15 +66,21 @@ lab:
     | 名称           | `app-backend-asg`          |
     | 区域         | **美国东部**                  |
 
-1. 选择“查看 + 创建”，然后选择“创建”。
+1. 选择“**查看 + 创建**”，然后选择“**创建**”。
 
-[了解更多有关创建应用程序安全组的信息](https://docs.microsoft.com/azure/virtual-network/tutorial-filter-network-traffic#create-application-security-groups)。
+**备注**：您正在现有虚拟网络所在的同一区域中创建应用程序安全组。
 
->**备注**：您正在现有虚拟网络所在的同一区域中创建应用程序安全组。
+**将应用程序安全组关联到 VM 的网络接口**
 
+1. 在 Azure 门户中，搜索并选择`VM2`。
+
+1. 在“**网络**”边栏选项卡中，选择“**应用程序安全组**”，然后选择“**添加应用程序安全组**”。
+
+1. 选择 **app-backend-asg** ，然后选择“**添加**”。
+   
 ### 创建并关联该网络安全组
 
-网络安全组 (NSG) 保护虚拟网络中的网络流量。 NSG 包含一组安全规则，可以允许或拒绝流向连接到 Azure 虚拟网络 (VNet) 资源的网络流量。 NSG 可以与连接到 Azure 虚拟机 (VM) 的子网和/或单个网络接口关联。
+[网络安全组 (NSG)](https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview) 保护虚拟网络中的网络流量。 
 
 1. 在门户中，搜索并选择 `Network security group`。
 
@@ -59,11 +93,11 @@ lab:
     | 名称           | `app-vnet-nsg`            |
     | 区域         | **美国东部**                  |
 
-    [详细了解如何创建网络安全组](https://docs.microsoft.com/azure/virtual-network/tutorial-filter-network-traffic#create-a-network-security-group)。
+1. 选择“**查看 + 创建**”，然后选择“**创建**”。
 
-1. 选择“查看 + 创建”，然后选择“创建”。
+**将 NSG 与 app-vnet 后端子网相关联。**
 
-**将 NSG 与 app-vnet 后端相关联。**
+NSG 可以与连接到 Azure 虚拟机 (VM) 的子网和/或单个网络接口关联。 
 
 1. 选择“**转到资源**”或导航到 **app-vnet-nsg** 资源。
 
@@ -73,21 +107,17 @@ lab:
 
 1. 选择 **app-vnet (RG1)，** 然后选择“**后端**”子网。 选择“确定”****。
 
-    [了解有关将网络安全组关联到子网的更多信息](https://docs.microsoft.com/azure/virtual-network/tutorial-filter-network-traffic#associate-a-network-security-group-to-a-subnet)。
-
 ### 创建网络安全组规则
 
-网络安全组 (NSG) 保护虚拟网络中的网络流量。
+NSG 使用[安全规则](https://learn.microsoft.com/azure/virtual-network/network-security-group-how-it-works)筛选入站和出站网络流量。 
 
-1. 在门户顶部的搜索框中，输入**网络安全组**。 在搜索结果中选择网络安全组。
+1. 在门户顶部的搜索框中，输入“**网络安全组**”。 在搜索结果中选择网络安全组。
 
 1. 在网络安全组列表中选择“app-vnet-nsg”****。
 
-1. 在“app-vnet-nsg”**** 的“设置”部分选择“入站安全规则”****。
+1. 在“**设置**”边栏选项卡中，选择“**入站安全规则**”。
 
-1. 选择“+ 添加”。
-
-1. 在 “添加入站安全规则”**** 页上，输入下表中列出的信息：
+1. 选择“**+ 添加**”并配置入站安全规则。 
 
     | 属性                               | 值                          |
     | :------------------------------------- | :----------------------------- |
@@ -100,44 +130,21 @@ lab:
     | 优先级                               | **100**                        |
     | 名称                                   | **AllowSSH**                   |
 
-    [详细了解如何创建网络安全组规则](https://docs.microsoft.com/azure/virtual-network/tutorial-filter-network-traffic#create-a-network-security-group)。
 
-### 使用 Cloud Shell 部署 ARM 模板，创建本练习所需 VM
+### 通过在线培训了解更多信息
 
-1. 在 Azure 门户中，选择 Azure 门户右上角的图标，打开 Azure Cloud Shell****。
++ [使用 Azure 门户通过网络安全组筛选网络流量](https://learn.microsoft.com/training/modules/filter-network-traffic-network-security-group-using-azure-portal/)。 本模块将重点介绍如何在 Azure 门户中使用网络安全组 (NSG) 筛选网络流量。 了解如何创建、配置和应用 NSG 以提高网络安全性。
++ [使用网络安全组和服务终结点来保护和隔离对 Azure 资源的访问](https://learn.microsoft.com/training/modules/secure-and-isolate-with-nsg-and-service-endpoints/)。 在本模块中，你将了解网络安全组以及如何限制网络连接。 
 
-1. 如果系统提示选择 Bash 或 PowerShell，请选择 PowerShell  。
+### 关键结论
 
-    >**注意**：如果这是第一次启动 Cloud Shell，并看到“未装载任何存储”消息，请选择在本实验室中使用的订阅，然后选择“创建存储”  。
+祝贺你完成本练习。 以下是要点：
 
-1. 使用 Cloud Shell 部署以下 ARM 模板，创建此练习所需 VM：
++ 应用程序安全组可以根据组织的应用程序来组织虚拟机并定义网络安全策略。
++ 使用 Azure 网络安全组筛选 Azure 虚拟网络中 Azure 资源之间的网络流量。
++ 可将零个或一个网络安全组与虚拟机中的每个虚拟网络子网和网络接口相关联。 
++ 网络安全组包含安全规则，这些规则可允许或拒绝 Azure 资源的入站和出站网络流量。
++ 将虚拟机加入应用程序安全组。 然后，使用应用程序安全组作为网络安全组规则中的源或目标。
 
->**备注**：可以选择以下部分中的文本，并在 Cloud Shell 中对其复制/粘贴。
 
-   ```powershell
-   $RGName = "RG1"
-   
-   New-AzResourceGroupDeployment -ResourceGroupName $RGName -TemplateUri https://raw.githubusercontent.com/MicrosoftLearning/Configure-secure-access-to-workloads-with-Azure-virtual-networking-services/main/Instructions/Labs/azuredeploy.json
-   ```
-  
-1. 若要验证 VM1**** 和 VM2**** 虚拟机是否正在运行，请导航到 RG1**** 资源组并选择 VM1****。
 
-1. 验证虚拟机的状态是否为“正在运行”****。
-
-1. 针对**** VM2 重复上一步。
-
-### 将应用程序安全组关联到 VM 的网络接口
-
-当你创建 VM 时，Azure 已经为每个 VM 创建了一个网络接口，并已将该接口附加到 VM。
-
-将你之前创建的应用程序安全组与 VM2 网络接口关联。
-
-1. 在 Azure 门户中，导航至 RG1**** 资源组并选择 VM2****。
-
-1. 导航到 VM 的网络标签页，在“应用程序安全组****”部分选择“+ 添加应用程序安全组****”。
-
-1. 在应用程序安全组列表中选择“app-backend-asg”****。
-
-1. 选择 **添加** 。
-
-  [了解有关在应用程序安全组中添加 NIC 的更多信息](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-network-interface?tabs=azure-portal#add-or-remove-from-application-security-groups)。
