@@ -1,60 +1,60 @@
 ---
 demo:
-  title: 演示：创建和配置 Azure 防火墙
-  module: Guided Project - Configure secure access to workloads with Azure virtual networking services
+    title: 'Demonstration: Create and configure Azure Firewall'
+    module: 'Guided Project - Configure secure access to workloads with Azure virtual networking services'
 ---
-## 演示 – 创建和配置 Azure 防火墙
+## Demonstration – Create and configure Azure Firewall
 
-**** 备注：部署 Azure 防火墙可能需要几分钟时间。
+**Note:** Azure Firewall can take a few minutes to deploy.
 
-在本演示中将探索 Azure 防火墙。
-查看并创建 Azure 防火墙和防火墙策略。
-1.  [支持幻灯片] 开始演示前，让我们复习一下什么是 Azure 防火墙。
-2.  访问 Azure 门户。
-3.  创建 Azure 防火墙。
-4.   ⓘ 在“基本”选项卡上，解释填写时可用的配置选项。 
-5.  接受其他默认值，然后选择“查看 + 创建”。
-6.  部署完成后，转到防火墙资源，并查看概述页。 
+In this demonstration, explore Azure Firewall.
+Review and create an Azure Firewall and Firewall policy.
+1.	[Supporting Slide] Before beginning the demonstration, let's review what Azure Firewall is.
+2.	Access the Azure portal.
+3.	Create an Azure Firewall.
+4.	ⓘ on the Basics tab explain the configuration options available as you fill them out. 
+5.	Accept the other default values, then select Review + create.
+6.	After deployment is completed, go to the firewall resource, and review the overview page. 
 
 
-### 配置应用程序规则 
+### Configure an application rule 
 
-1. [支持幻灯片] Azure 防火墙策略规则
+1. [Supporting Slide] Azure Firewall policy rules
 
-这是允许出站访问 www.google.com 的应用程序规则。
-1.  导航到你创建的防火墙策略。
-2.  选择“应用程序规则”。
-3.  选择“添加规则集合”。
-4.  对于“名称”，请输入“App-Coll01”。
-5.  对于“优先级”，请输入“200”。
-6.  对于规则集合操作，请选择允许。
-7.  在“规则”下，为“名称”输入“Allow-Google”。
-8.  对于源类型，请选择“IP 地址”。
-9.  对于“源”，请输入“10.0.2.0/24”。
-10. 对于“协议:端口”，请输入“http, https”。
-11. 对于“目标类型”，请选择“FQDN” 。
-12. 在“目标”栏位输入 www.google.com
-13. 选择 添加 。
+This is the application rule that allows outbound access to www.google.com.
+1.	Navigate to the firewall policy you created.
+2.	Select Application rules.
+3.	Select Add a rule collection.
+4.	For Name, enter App-Coll01.
+5.	For Priority, enter 200.
+6.	For Rule collection action, select Allow.
+7.	Under Rules, for Name, enter Allow-Google.
+8.	For Source type, select IP address.
+9.	For Source, enter 10.0.2.0/24.
+10.	For Protocol:port, enter http, https.
+11.	For Destination Type, select FQDN.
+12.	For Destination, enter www.google.com
+13.	Select Add.
 
-Azure 防火墙包含默认情况下允许的基础结构 FQDN 的内置规则集合。 这些 FQDN 特定于平台，不能用于其他目的。 有关详细信息，请参阅基础结构 FQDN。
+Azure Firewall includes a built-in rule collection for infrastructure FQDNs that are allowed by default. These FQDNs are specific for the platform and can't be used for other purposes. For more information, see Infrastructure FQDNs.
 
-### 配置网络规则
-这是允许在端口 53 (DNS) 上对两个 IP 地址进行出站访问的网络规则。
-1.  选择“网络规则”。
-2.  选择“添加规则集合”。
-3.  对于“名称”，请输入“Net-Coll01”。
-4.  对于“优先级”，请输入“200”。
-5.  对于规则集合操作，请选择允许。
-6.  对于“规则收集组”，选择“DefaultNetworkRuleCollectionGroup” 。
-7.  在“规则”下，为“名称”输入“Allow-DNS”。
-8.  对于“源类型”，请选择“IP 地址” 。
-9.  对于“源”，请输入“10.0.2.0/24”。
-10. 对于“协议”，请选择“UDP”。
-11. 对于“目标端口”，请输入“53”。
-12. 对于“目标类型”，请选择“IP 地址”。
+### Configure a network rule
+This is the network rule that allows outbound access to two IP addresses at port 53 (DNS).
+1.	Select Network rules.
+2.	Select Add a rule collection.
+3.	For Name, enter Net-Coll01.
+4.	For Priority, enter 200.
+5.	For Rule collection action, select Allow.
+6.	For Rule collection group, select DefaultNetworkRuleCollectionGroup.
+7.	Under Rules, for Name, enter Allow-DNS.
+8.	For Source type, select IP Address.
+9.	For Source, enter 10.0.2.0/24.
+10.	For Protocol, select UDP.
+11.	For Destination Ports, enter 53.
+12.	For Destination type select IP address.
 
->**** 备注：学生现在应能够完成 LAB_04
-14. 在“目标”栏位输入 209.244.0.3,209.244.0.4。
-这些是由 CenturyLink 操作的公共 DNS 服务器。
-15. 选择 添加 。
+>**Note**: Students should now be able to complete LAB_04
+14.	For Destination, enter 209.244.0.3, 209.244.0.4.
+These are public DNS servers operated by CenturyLink.
+15.	Select Add.
 
