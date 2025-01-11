@@ -1,49 +1,50 @@
 ---
 demo:
-  title: 演示 - 创建并配置网络路由
-  module: Guided Project - Configure secure access to workloads with Azure virtual networking services
+    title: 'Demonstration: Create and configure network routing'
+    module: 'Guided Project - Configure secure access to workloads with Azure virtual networking services'
 ---
-## 演示 - 创建并配置网络路由
+## Demonstration – Create and configure network routing
 
-在本演示中，你将学习如何创建路由表、定义自定义路由以及将路由与子网相关联。 
-
-
-注意：本演示需要一个具有至少一个子网的虚拟网络。 
-
-路由网络流量 - 教程 - Azure 门户[](https://learn.microsoft.com/azure/virtual-network/tutorial-create-route-table-portal#create-a-route-table)
+In this demonstration, we will learn how to create a route table, define
+a custom route, and associate the route with a subnet. 
 
 
-### 创建路由表 
+**Note:** This demonstration requires a virtual network with at least one subnet.
 
-1. 如果有时间，可查看教程图。 说明需要创建用户定义的路由的原因。 
+[Route network traffic - tutorial - Azure portal](https://learn.microsoft.com/azure/virtual-network/tutorial-create-route-table-portal#create-a-route-table)
 
-1. 访问 Azure 门户。
 
-1. 搜索并选择“路由表”。**** 讨论何时应使用传播网关路由。 
+### Create a Route table 
 
-1. 创建路由表，说明任何不常见的设置。 
+1. As you have time review the tutorial diagram. Explain why you need to create a user-defined route. 
 
-1. 等待要部署的新路由表。
+1. Access the Azure portal.
 
-**添加路由**
+1. Search for and select **Route tables**. Discuss when **propagate gateway routes** should be used. 
 
-1.  选择新路由表，然后选择“路由” **** 。
+1. Create a routing table, explain any uncommon settings. 
 
-1.  创建新的路由。 讨论可用的不同跃点类型。 
+1. Wait for the new routing table to be deployed.
 
-1.  创建新路由并等待资源部署完成。
+**Add a route**
+
+1.  Select your new routing table, and then select **Routes**.
+
+1.  Create a new **route**. Discuss the different **hop types** that are available. 
+
+1.  Create the new route and wait for the resource to be deployed.
  
-### 将路由表与子网关联
-一个路由表可与零个或多个子网相关联。 路由表不是与虚拟网络关联， 必须将路由表与每个要关联的子网相关联。
+### Associate a Route Table to a subnet
+A route table can be associated to zero or more subnets. Route tables aren't associated to virtual networks. You must associate a route table to each subnet you want the route table associated to.
 
 
-1.  前往希望与路由表相关联的子网。
+1.  Navigate to the subnet you want to associate with the routing table.
 
-1.  选择“路由表”，然后选择新的路由表 **** 。 
+1.  Select **Route table** and choose your new routing table. 
 
-1.  保存更改 。
+1.  **Save** your changes.
 
  
->**** 备注：只能将路由表与路由表位于同一 Azure 位置和订阅的虚拟网络中的子网关联。
+>**Note**: You can only associate a route table to subnets in virtual networks that exist in the same Azure location and subscription as the route table.
 
->**** 备注：学生现在应能够完成 LAB_04
+>**Note**: Students should now be able to complete LAB_04

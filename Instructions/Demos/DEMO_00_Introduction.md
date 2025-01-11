@@ -1,40 +1,40 @@
 ---
 demo:
-  title: 演示：学生材料和实验室环境（调整）
-  module: Guided Project - Configure secure access to workloads with Azure virtual networking services
+    title: 'Demonstration: Student materials and lab environment (adjust)'
+    module: 'Guided Project - Configure secure access to workloads with Azure virtual networking services'
 ---
-## 演示 - 学生材料和实验室环境（可选）
+## Demonstration - Student materials and lab environment (optional)
 
-使用此演示向学生展示如何访问实验室环境和学生材料。 您可以在课堂开始时或下一次演示之前进行演示。 
+Use this demonstration to show students how to access the lab environment and student materials. You can do this at the beginning of class or before the next demonstration. 
 
-### 向学生展示实验室环境（根据实验室主机进行调整）
+### Show students the lab environment (adjust for your lab hoster)
 
-- 讨论学生如何访问实验室环境。 
+- Discuss how students access the lab environment. 
 
-- 说明如何登录虚拟机主机。
+- Explain how to sign-in to the virtual machine host.
 
-- 说明如何访问[Azure 门户](https://portal.azure.com)。 最好在实验室环境中打开 Azure 门户，而不是单独的窗口。 询问有多少学生使用过该门户。 
+- Explain how to access the [Azure portal](https://portal.azure.com). It is preferred to open the Azure portal in the lab environment instead of a separate window. Ask for a show of hands on how many students have used the portal. 
 
-- 说明已为这些实验室配置的资源。
+- Explain what resources have already been configured for the labs.
 
-- 查看如何使用实验室说明。 
+- Review how to use the lab instructions. 
 
-- 添加主机的其他特定主题。 
+- Add other topics specific to your hoster. 
 
-### 为学生演示其课程材料。
+### Show students their course materials.
 
-- [访问 Microsoft Learn 页面](https://learn.microsoft.com)。
+- Access the [Microsoft Learn page](https://learn.microsoft.com).
 
-- 讨论为何 Microsoft Learn 是所有 Azure 文档、培训、认证和评估的良好来源。 
+- Discuss that Microsoft Learn is a great source for all Azure documentation, training, certifications, and assessments. 
 
-- 选择“学习路径”****，然后搜索**使用 Azure 虚拟网络配置对工作负荷的安全访问**学习路径。
+- Select **Learning Paths** and then search for the **Configure secure access to your workloads using Azure virtual networking** learning path.
 
-- 讨论学习路径中特定于此评估的内容，但他们可以查看更多存储内容。
+- Discuss that the content in the learning path is specific to this assessment, but there is much more storage content they can review.
 
-- 说明内容只是参考资料，课堂演示文稿可能并不完全一样。
+- Explain the content is reference material and there isn't a 1:1 mapping with the classroom presentations.
 
-- 讨论其中每个模块可能还有其他动手活动。 随着课程的进行，您将确定这些活动。 
+- Discuss that each of these modules may have additional hands-on activities. You will identify these activities as the course progresses. 
 
-- 要求学生查找和标记学习路径。
+- Ask the students to locate and bookmark the learning path.
 
  

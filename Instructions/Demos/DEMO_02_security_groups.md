@@ -1,57 +1,57 @@
 ---
 demo:
-  title: 演示：创建和配置网络安全组
-  module: Guided Project - Configure secure access to workloads with Azure virtual networking services
+    title: 'Demonstration: Create and configure network security groups'
+    module: 'Guided Project - Configure secure access to workloads with Azure virtual networking services'
 ---
-## 演示 - 创建和配置网络安全组
+## Demonstration – Create and configure network security groups
 
 
-在此演示中，我们将探索安全组。 
+In this demonstration, we will explore security groups. 
 
-**** 备注：**[](https://mslearn.cloudguides.com/en-us/guides/AZ-900%20Exam%20Guide%20-%20Azure%20Fundamentals%20Exercise%2013?azure-portal=true)** 可以使用虚拟网络的交互式实验室模拟，如果无法执行实时演示，则可以单击类似的实验室。 你可能会发现交互式模拟与建议的演示之间存在细微差异，但演示的核心概念和思想相同。 
+**Note:** An **[interactive lab simulation for virtual networks](https://mslearn.cloudguides.com/en-us/guides/AZ-900%20Exam%20Guide%20-%20Azure%20Fundamentals%20Exercise%2013?azure-portal=true)** is available that allows you to click through a similar lab if you are unable to do a live demonstration. You may find slight differences between the interactive simulation and the suggested demo, but the core concepts and ideas being demonstrated are the same. 
 
-限制访问 PaaS 资源 - 教程 - Azure 门户[](https://docs.microsoft.com/azure/virtual-network/tutorial-restrict-network-access-to-resources)
+[Restrict access to PaaS resources - tutorial - Azure portal](https://docs.microsoft.com/azure/virtual-network/tutorial-restrict-network-access-to-resources)
 
-### 创建网络安全组
+### Create a network security group
 
-1. 访问 Azure 门户。
+1. Access the Azure Portal.
 
-1. 搜索并选择“网络安全组” **** 。
+1. Search for and select the **Network Security Groups**.
 
-1. [支持幻灯片] 创建一个 NSG，在创建过程中解释如何设置。 
+1. [Supporting Slide] Create a NSG explaining the settings as you go. 
  
-1. 等待部署新 NSG。
+1. Wait for the new NSG to deploy.
 
-**探索入站和出站规则**
+**Explore inbound and outbound rules**
 
-1. 选择新 NSG。
+1. Select your new NSG.
 
-1. [支持幻灯片] 讨论 NSG 如何与子网或网络接口相关联。
+1. [Supporting Slide] Discuss how the NSG can be associated with subnets or network interfaces.
 
-1. 讨论目标入站和出站规则。  
+1. Discuss the purpose inbound and outbound rules.  
 
-1. 查看默认的入站和出站规则。 
+1. Review the default inbound and outbound rules. 
 
-1. 创建新规则，说明设置。 专门讨论服务选择（如 HTTPS）和优先级设置。 
+1. Create a new rule, explaining the settings as you go. Specifically discuss the service selection (like HTTPS) and the priority settings. 
  
 
-### 创建 ASG
+### Create ASG
  
-1. [支持幻灯片] 搜索并选择“应用程序安全组”。 ****
+1. [Supporting Slide] Search for and select the **Application Security Groups**.
 
-1. 创建一个 ASG，并在创建过程中说明如何设置。 
+1. Create an ASG explaining the settings as you go. 
  
-1. 等待新 ASG 部署完成。
+1. Wait for the new ASG to deploy.
 
-1. 讨论 ASG 如何与 NSG 规则关联。
-
-
-### 关联 NSG 
-1.  导航到已创建的 NSG
-1.  在“设置”部分选择“子网”。
-1.  在“子网”页中选择“+ 关联”
-1.  在“关联子网”下选择你的“虚拟网络”。
+1. Discuss how the ASG can be associated with NSG rules.
 
 
->**** 备注：学生现在应该能够完成 LAB_02
+### Associate the NSGs 
+1.	Navigate to the NSG you created
+1.	Select Subnets from the Settings section.
+1.	In the Subnets page, select + Associate
+1.	Under Associate subnet, select your Virtual network.
+
+
+>**Note**: Students should now be able to complete LAB_02
 
